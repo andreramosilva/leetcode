@@ -13,6 +13,8 @@ class Solution:
 
         # return root if left and right else left or right
 
+        # this way no need for a for loop
+
         left = self.lowestCommonAncestor(root.left,p,q)
         right = self.lowestCommonAncestor(root.right,p,q)
 
