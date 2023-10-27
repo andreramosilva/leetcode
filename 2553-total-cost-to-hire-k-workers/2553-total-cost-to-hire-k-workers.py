@@ -1,18 +1,28 @@
 class Solution:
     def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
-        ans = 0
+        total = 0
+        heap1 = []
+        heap2 = []
         n = len(costs)
-        q = []
-        qq = []
-        l, r = 0, n - 1
-
+        left = 0
+        right = n -1
         for _ in range(k):
-            while len(q) < candidates and l <= r: heappush(q, costs[l]); l+=1
-            while len(qq) < candidates and l <= r: heappush(qq, costs[r]); r-=1
+            i = 0
+            while len(heap1) < candidates and left <= right:
+                heappush(heap1,costs[left])
+                left+=1
+            while len(heap2) < candidates and left <=right:
+                heappush(heap2,costs[right])
+                right-=1
+            
+            l = heap1[0] if heap1 else maxsize
+            r = heap2[0] if heap2 else maxsize
 
-            a = q[0] if q else maxsize
-            b = qq[0] if qq else maxsize
+            if l <= r:
+                total+=l
+                heappop(heap1)
+            else:
+                total+=r
+                heappop(heap2)
 
-            if a <= b: ans += a; heappop(q)
-            else: ans += b; heappop(qq)
-        return ans 
+        return total
